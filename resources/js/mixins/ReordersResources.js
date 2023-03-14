@@ -13,7 +13,7 @@ export default {
     },
   },
   beforeMount() {
-    this.fakeResources = this.resources;
+    this.fakeResources = this.resources?.map(r => ({ ...r, idValue: r.id.value })) || [];
   },
   watch: {
     resources(newVal, oldVal) {

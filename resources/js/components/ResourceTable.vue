@@ -19,7 +19,7 @@
       />
       <draggable
         tag="tbody"
-        item-key="id"
+        item-key="idValue"
         v-model:list="fakeResources"
         handle=".handle"
         draggable="tr"
