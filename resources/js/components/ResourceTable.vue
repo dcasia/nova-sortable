@@ -20,37 +20,38 @@
       <draggable
         tag="tbody"
         item-key="id"
-        v-model="fakeResources"
+        v-model:list="fakeResources"
         handle=".handle"
         draggable="tr"
-        @update="updateOrder"
+        @end="updateOrder"
         class="o1-divide-y o1-divide-gray-100 dark:o1-divide-gray-700"
       >
-        <ResourceTableRow
-          v-for="(resource, index) in fakeResources"
-          :key="`${resourceName}-items-${index}-${resource.id.value}`"
-          @actionExecuted="$emit('actionExecuted')"
-          :testId="`${resourceName}-items-${index}`"
-          :delete-resource="deleteResource"
-          :restore-resource="restoreResource"
-          :resource="resource"
-          :resource-name="resourceName"
-          :relationship-type="relationshipType"
-          :via-relationship="viaRelationship"
-          :via-resource="viaResource"
-          :via-resource-id="viaResourceId"
-          :via-many-to-many="viaManyToMany"
-          :checked="selectedResources.indexOf(resource) > -1"
-          :actions-are-available="actionsAreAvailable"
-          :actions-endpoint="actionsEndpoint"
-          :should-show-checkboxes="shouldShowCheckboxes"
-          :should-show-column-borders="shouldShowColumnBorders"
-          :table-style="tableStyle"
-          :update-selection-status="updateSelectionStatus"
-          :click-action="clickAction"
-          @moveToStart="moveToStart(resource)"
-          @moveToEnd="moveToEnd(resource)"
-        />
+        <template #item="{ element: resource, index }">
+          <ResourceTableRow
+            :key="`${resourceName}-items-${index}-${resource.id.value}`"
+            @actionExecuted="$emit('actionExecuted')"
+            :testId="`${resourceName}-items-${index}`"
+            :delete-resource="deleteResource"
+            :restore-resource="restoreResource"
+            :resource="resource"
+            :resource-name="resourceName"
+            :relationship-type="relationshipType"
+            :via-relationship="viaRelationship"
+            :via-resource="viaResource"
+            :via-resource-id="viaResourceId"
+            :via-many-to-many="viaManyToMany"
+            :checked="selectedResources.indexOf(resource) > -1"
+            :actions-are-available="actionsAreAvailable"
+            :actions-endpoint="actionsEndpoint"
+            :should-show-checkboxes="shouldShowCheckboxes"
+            :should-show-column-borders="shouldShowColumnBorders"
+            :table-style="tableStyle"
+            :update-selection-status="updateSelectionStatus"
+            :click-action="clickAction"
+            @moveToStart="moveToStart(resource)"
+            @moveToEnd="moveToEnd(resource)"
+          />
+        </template>
       </draggable>
     </table>
   </div>
@@ -58,7 +59,7 @@
 
 <script>
 import { InteractsWithResourceInformation } from 'laravel-nova-mixins'
-import { VueDraggableNext } from 'vue-draggable-next'
+import { DraggableList } from "vue-draggable-list";
 import ReordersResources from '../mixins/ReordersResources'
 
 export default {
@@ -74,7 +75,7 @@ export default {
   mixins: [InteractsWithResourceInformation, ReordersResources],
 
   components: {
-    draggable: VueDraggableNext,
+    draggable: DraggableList,
   },
 
   props: {
