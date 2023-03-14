@@ -210,7 +210,7 @@
 
   <PreviewResourceModal
     v-if="previewModalOpen"
-    :resource-id="resource.id.value"
+    :resource-id="resource.id"
     :resource-name="resourceName"
     :show="previewModalOpen"
     @close="closePreviewModal"

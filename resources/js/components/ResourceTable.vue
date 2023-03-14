@@ -28,7 +28,7 @@
       >
         <template #item="{ element: resource, index }">
           <ResourceTableRow
-            :key="`${resourceName}-items-${index}-${resource.id.value}`"
+            :key="`${resourceName}-items-${index}-${resource.id}`"
             @actionExecuted="$emit('actionExecuted')"
             :testId="`${resourceName}-items-${index}`"
             :delete-resource="deleteResource"

@@ -13,7 +13,7 @@ export default {
     },
   },
   beforeMount() {
-    this.fakeResources = this.resources;
+    this.fakeResources = this.resources?.map(r => ({ ...r, id: r.id.value })) || [];
   },
   watch: {
     resources(newVal, oldVal) {
@@ -29,7 +29,7 @@ export default {
       try {
         await Nova.request().post(`/nova-vendor/nova-sortable/sort/${this.resourceName}/update-order`, {
           resourceId: null,
-          resourceIds: this.fakeResources.map(r => r.id.value),
+          resourceIds: this.fakeResources.map(r => r.id),
           viaResource: this.viaResource,
           viaResourceId: this.viaResourceId,
           viaRelationship: this.viaRelationship,
@@ -54,7 +54,7 @@ export default {
       this.reorderLoading = true;
       try {
         await Nova.request().post(`/nova-vendor/nova-sortable/sort/${this.resourceName}/move-to-start`, {
-          resourceId: resource.id.value,
+          resourceId: resource.id,
           viaResource: this.viaResource,
           viaResourceId: this.viaResourceId,
           viaRelationship: this.viaRelationship,
@@ -73,7 +73,7 @@ export default {
       this.reorderLoading = true;
       try {
         await Nova.request().post(`/nova-vendor/nova-sortable/sort/${this.resourceName}/move-to-end`, {
-          resourceId: resource.id.value,
+          resourceId: resource.id,
           viaResource: this.viaResource,
           viaResourceId: this.viaResourceId,
           viaRelationship: this.viaRelationship,
