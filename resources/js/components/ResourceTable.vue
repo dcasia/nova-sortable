@@ -23,7 +23,7 @@
         v-model:list="fakeResources"
         handle=".handle"
         draggable="tr"
-        @end="updateOrder"
+        @update="updateOrder"
         class="o1-divide-y o1-divide-gray-100 dark:o1-divide-gray-700"
       >
         <template #item="{ element: resource, index }">

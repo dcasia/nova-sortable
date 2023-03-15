@@ -13,17 +13,24 @@ export default {
     },
   },
   beforeMount() {
-    this.fakeResources = this.resources?.map(r => ({ ...r, idValue: r.id.value })) || [];
+    this.fakeResources = this.convertToFakeResources();
   },
   watch: {
     resources(newVal, oldVal) {
       if (newVal.length !== oldVal.length) {
-        this.fakeResources = this.resources;
+        this.fakeResources = this.convertToFakeResources();
       }
     },
   },
   methods: {
+    convertToFakeResources() {
+      return this.resources?.map(r => ({ ...r, idValue: r.id.value })) || [];
+    },
     async updateOrder(event) {
+      const moved = event.moved;
+      if (!moved) return
+      if (moved.oldIndex === moved.newIndex) return
+
       this.reorderLoading = true;
 
       try {
