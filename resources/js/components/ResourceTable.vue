@@ -21,8 +21,7 @@
         tag="tbody"
         item-key="idValue"
         v-model:list="fakeResources"
-        handle=".handle"
-        draggable="tr"
+        :disabled="!canSeeReorderButtons"
         @update="updateOrder"
         class="o1-divide-y o1-divide-gray-100 dark:o1-divide-gray-700"
       >
